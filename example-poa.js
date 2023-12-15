@@ -7,12 +7,15 @@ repeat_lines = 50;
 console.log("-".repeat(repeat_lines))
 console.log("New Blockchain started with Proof of Authority")
 console.log("-".repeat(repeat_lines))
-console.log("\Authorities selected...");
 let authorities = Participants.nodes();
-console.log("-".repeat(repeat_lines))
+console.log("Authorities list: ");
+authorities.forEach(element => console.log(element[0]));
+console.log("Users list: ");
+Participants.accounts().forEach(element => console.log(element[0]));
+console.log("-".repeat(repeat_lines));
 
 let blockchain = new Blockchain('poa');
-console.log("Genesis Block 1 created")
+console.log("Genesis Block 0 created")
 console.log("-".repeat(repeat_lines))
 
 console.log("-".repeat(repeat_lines))
@@ -21,7 +24,7 @@ blockchain.createTransaction(new Transaction(Participants.accounts()[0][0],Parti
 blockchain.createTransaction(new Transaction(Participants.accounts()[1][0],Participants.accounts()[0][0],50));
 
 console.log("-".repeat(repeat_lines))
-console.log('Creating Block 2...');
+console.log('Creating Block 1...');
 let authority = authorities[Math.floor(Math.random() * Participants.nodes().length)][0];
 console.log('\nAuthority randomly chosen: ' + authority);
 blockchain.generateBlock(authority);
@@ -31,7 +34,7 @@ console.log('\nNew Transactions created...');
 blockchain.createTransaction(new Transaction(Participants.accounts()[1][0],Participants.accounts()[0][0],130));
 
 console.log("-".repeat(repeat_lines))
-console.log('Creating Block 3...');
+console.log('Creating Block 2...');
 authority = authorities[Math.floor(Math.random() * Participants.nodes().length)][0];
 console.log('\nAuthority randomly chosen: ' + authority);
 blockchain.generateBlock(authority);

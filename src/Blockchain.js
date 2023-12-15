@@ -1,8 +1,7 @@
 const Block = require('./Block.js');
 const Transaction = require('./Transaction.js');
 
-const ProofOfWork = require('../consensus/proof-of-work.js');
-const ProofOfStake = require('../consensus/proof-of-stake.js');
+
 const ProofOfAuthority = require('../consensus/proof-of-authority.js');
 
 class Blockchain {
@@ -15,7 +14,7 @@ class Blockchain {
     }
 
     createGenesisBlock() {
-        return new Block("01/01/2010","GenesisBlock","0");
+        return new Block(new Date().toLocaleString("vi-VN"),"GenesisBlock","0");
     }
 
     getLatestBlock() {
@@ -23,7 +22,7 @@ class Blockchain {
     }
 
     generateBlock(minerAddress, difficulty = 2) { 
-        let block = new Block(Date.now(), this.pendingTransactions, this.getLatestBlock().hash);
+        let block = new Block(new Date().toLocaleString("vi-VN"), this.pendingTransactions, this.getLatestBlock().hash);
         
         if (['pow','pos'].includes(this.consensus)){
             
@@ -86,12 +85,6 @@ class Blockchain {
             const copiedBlock = Object.assign({}, currentBlock);
             
             switch (this.consensus) {
-                default: case 'pow':
-                    consensusAlgorithm = new ProofOfWork(copiedBlock);
-                    break;
-                case 'pos':
-                    consensusAlgorithm = new ProofOfStake(copiedBlock);
-                    break;
                 case 'poa':
                     consensusAlgorithm = new ProofOfAuthority(copiedBlock);
                     break;
